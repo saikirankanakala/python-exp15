@@ -43,3 +43,25 @@ def read_employee(request):
         'selected_emp':selected_emp
     }
     return render(request,'employerapp/crudfunction.html',context)
+
+def update_employee(request):
+    employees=Employerdetails.objects.all()
+    selected_emp=None
+    message= None
+    if request.method=="POST":
+        empid=request.POST.get('empid')
+        selected_emp=Employerdetails.objects.filter(empid=empid).first()
+        if "fetch" in request.POST:
+            pass
+        elif "update" in request.POST:
+            selected_emp.empname=request.POST.get('empname')
+            selected_emp.emplocation=request.POST.get('emplocation')
+            selected_emp.empphone=request.POST.get('empphone')
+            selected_emp.empemail=request.POST.get('empemail')
+            selected_emp.save()
+            message = "Employee updated successfully"
+    return render(request,'employerapp/crudfunction.html',{
+        'employees':employees,
+        "update_emp": selected_emp,
+        "update_msg": message
+    })

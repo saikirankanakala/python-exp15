@@ -5,4 +5,5 @@ urlpatterns=[
     path('crudfunction/',views.crudfunction,name='crudfunction'),
     path('crud_insert/',views.crud_insert,name='crud_insert'),
     path('read_employee/',views.read_employee,name='read_employee'),
+    path('update_employee/',views.update_employee,name='update_employee'),
 ]

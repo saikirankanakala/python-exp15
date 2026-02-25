@@ -42,6 +42,8 @@
         <!-- READ -->
         <div class="col">
             <h2>Read</h2>
+            <label>Select Employee:</label>
+            <br>
             <form method="post" action="{% url 'read_employee' %}">
                 {% csrf_token %}
                 <select name="read_empid" required>
@@ -68,6 +70,39 @@
         <!-- UPDATE -->
         <div class="col">
             <h2>Update</h2>
+                <form method="post" action="{% url 'update_employee' %}">
+                {% csrf_token %}
+                <label>Select Employee ID</label>
+                    <select name="empid" required>
+                        <option value="">-- Select Emp ID --</option>
+                        {% for emp in employees %}
+                            <option value="{{ emp.empid }}">{{ emp.empid }}</option>
+                        {% endfor %}
+                    </select>
+                    <br><br>
+                    <button class="btn" type="submit" name="fetch">Fetch</button>
+                    <br>
+                    {% if update_emp %}
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input type="text" name="empname" value="{{ update_emp.empname }}">
+
+                            <label>Location</label>
+                            <input type="text" name="emplocation" value="{{ update_emp.emplocation }}">
+
+                        <label>Phone</label>
+                        <input type="text" name="empphone" value="{{ update_emp.empphone }}">
+                            <label>Email</label>
+                        <input type="text" name="empemail" value="{{ update_emp.empemail }}">
+                    </div>
+
+                    <button class="btn" type="submit" name="update">Update</button>
+                {% endif %}
+                    </form>
+
+            {% if update_msg %}
+                <div class="result">{{ update_msg }}</div>
+            {% endif %}
         </div>
 
         <!-- DELETE -->
@@ -76,7 +111,8 @@
         </div>
 
     </div>
-
+    <br><br>
+    <button class="btn" onclick="window.location.href='{% url "adminapphomepage" %}'" style="width: 500px; text-align: center; display: block; margin: 0 auto;">Home Page</button>
 </div>
 {% endblock %}
 </body>
