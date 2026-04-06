@@ -108,6 +108,27 @@
         <!-- DELETE -->
         <div class="col">
             <h2>Delete</h2>
+            <form method="post" action="{% url 'delete_employee' %}">
+        {% csrf_token %}
+
+        <label>Select Employee ID</label>
+        <select name="empid" required>
+            <option value="">-- Select Emp ID --</option>
+            {% for emp in employees %}
+                <option value="{{ emp.empid }}">{{ emp.empid }}</option>
+            {% endfor %}
+        </select>
+<br><br>
+        <button class="btn delete-btn" type="submit">
+            Delete
+        </button>
+                <br><br>
+    </form>
+
+    {% if delete_msg %}
+        <div class="result">{{ delete_msg }}</div>
+    {% endif %}
+</div>
         </div>
 
     </div>

@@ -24,7 +24,7 @@ def crud_insert(request):
         add=Employerdetails(
             empid=empid,
             empname=empname,
-            emplocation=emploc,
+            emploc=emploc,
             empphone=empphone,
             empemail=empemail
         )
@@ -64,4 +64,22 @@ def update_employee(request):
         'employees':employees,
         "update_emp": selected_emp,
         "update_msg": message
+    })
+def delete_employee(request):
+    employees = Employerdetails.objects.all()
+    message = None
+
+    if request.method == "POST":
+        empid = request.POST.get("empid")
+        emp = Employerdetails.objects.filter(empid=empid).first()
+
+        if emp:
+            emp.delete()
+            message = f"Employee {empid} deleted successfully"
+        else:
+            message = "Employee not found"
+
+    return render(request, "employerapp/crudfunction.html", {
+        "employees": employees,
+        "delete_msg": message
     })
